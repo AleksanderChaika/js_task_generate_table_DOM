@@ -355,6 +355,8 @@ const people = [
 ];
 
 // eslint-disable-next-line no-console
+console.log(people); // you can remove it
+
 (function generateTable() {
   const table = document.querySelector('.dashboard');
 
@@ -372,9 +374,11 @@ const people = [
     const age = person.died - person.born;
     const century = Math.ceil(person.died / 100);
 
+    const formattedSex = person.sex === 'm' ? 'Male' : 'Female';
+
     const values = [
       person.name,
-      person.sex,
+      formattedSex,
       person.born,
       person.died,
       age,
