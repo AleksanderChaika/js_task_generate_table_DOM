@@ -357,24 +357,33 @@ const people = [
 // eslint-disable-next-line no-console
 console.log(people); // you can remove it
 
-const table = document.querySelector('.dashboard');
+(function generateTable() {
+  const table = document.querySelector('.dashboard');
 
-people.forEach((person) => {
-  const tr = document.createElement('tr');
-  const age = Number(person.died) - Number(person.born);
-  const century = Math.ceil(Number(person.died) / 100);
+  if (!table) {
+    return;
+  }
 
-  const sex = person.sex === 'm' ? 'Male' : 'Female';
+  const fragment = document.createDocumentFragment();
 
-  const values = [person.name, sex, person.born, person.died, age, century];
+  people.forEach((person) => {
+    const tr = document.createElement('tr');
+    const age = person.died - person.born;
+    const century = Math.ceil(person.died / 100);
 
-  values.forEach((value) => {
-    const td = document.createElement('td');
+    const sex = person.sex === 'm' ? 'Male' : 'Female';
 
-    td.textContent = value;
+    const values = [person.name, sex, person.born, person.died, age, century];
 
-    tr.append(td);
+    values.forEach((value) => {
+      const td = document.createElement('td');
+
+      td.textContent = value;
+      tr.appendChild(td);
+    });
+
+    fragment.appendChild(tr);
   });
 
-  table.append(tr);
-});
+  table.appendChild(fragment);
+})();
